@@ -48,32 +48,38 @@ public class QuizService {
     }
 
     @Transactional
-    public  ResponseEntity<QuizResult> calculateQuiz(Integer id, List<Response> responses) {
-        Optional<Quiz> quiz=quizRepository.findById(id);
-        List<Question> questions=quiz.get().getQuestions();
+    public ResponseEntity<QuizResult> calculateQuiz(Integer id, List<Response> responses) {
+        Optional<Quiz> quiz = quizRepository.findById(id);
+        List<Question> questions = quiz.get().getQuestions();
 
-
-        int right=0;
+        int right = 0;
         int size = Math.min(responses.size(), questions.size());
 
         for (int i = 0; i < size; i++) {
-            if (responses.get(i).getResponse().equals(questions.get(i).getRightAnswer())) {
+            String userResponse = responses.get(i).getResponse();
+            Question question = questions.get(i);
 
+            boolean isOption = userResponse.equals(question.getOption1()) ||
+                    userResponse.equals(question.getOption2()) ||
+                    userResponse.equals(question.getOption3()) ||
+                    userResponse.equals(question.getOption4());
+
+            if (userResponse.equals(question.getRightAnswer())) {
                 right++;
-                responses.get(i).setCheck("correct");
-            }else{
-                responses.get(i).setCheck("wrong");
-                responses.get(i).setCorrectAnswer(questions.get(i).getRightAnswer());
+                responses.get(i).setCheck("correct answer");
+
+            } else if (!isOption) {
+                responses.get(i).setCheck("This is not a valid option. Select a valid option.");
+
+            } else {
+                responses.get(i).setCheck("Wrong answer");
+                responses.get(i).setCorrectAnswer(question.getRightAnswer());
             }
         }
+
         QuizResult result = new QuizResult(responses, right);
         return new ResponseEntity<>(result, HttpStatus.OK);
-
-
-
-
-
-
     }
+
 
 }
