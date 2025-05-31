@@ -1,3 +1,4 @@
+
 package com.alamin.quizapp.config;
 
 import com.auth0.jwt.JWT;
