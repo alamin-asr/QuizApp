@@ -1,6 +1,6 @@
 package com.alamin.quizapp.controller;
 
-import com.alamin.quizapp.entity.QuestionWapper;
+import com.alamin.quizapp.entity.QuestionWrapper;
 import com.alamin.quizapp.entity.Response;
 import com.alamin.quizapp.entity.QuizResult;
 import com.alamin.quizapp.service.QuizService;
@@ -15,18 +15,18 @@ import java.util.List;
 public class QuizController {
 
     @Autowired
-    QuizService quizeService;
+    QuizService quizService;
 
-    @PostMapping("creat")
+    @PostMapping("create")
     public ResponseEntity<String> createQuiz(@RequestParam String category,@RequestParam int numQ,@RequestParam String title) {
-       return quizeService.creatQuiz(category,numQ,title);
+       return quizService.createQuiz(category,numQ,title);
     }
     @GetMapping("get/{id}")
-    public ResponseEntity<List<QuestionWapper>> getQuizQuestions(@PathVariable Integer id) {
-      return quizeService.getQuizQuestions(id);
+    public ResponseEntity<List<QuestionWrapper>> getQuizQuestions(@PathVariable Integer id) {
+      return quizService.getQuizQuestions(id);
     }
     @PostMapping("submit/{id}")
     public ResponseEntity<QuizResult> submitQuiz(@PathVariable Integer id, @RequestBody List<Response>responses) {
-      return quizeService.calculateQuiz(id,responses);
+      return quizService.calculateQuiz(id,responses);
     }
 }

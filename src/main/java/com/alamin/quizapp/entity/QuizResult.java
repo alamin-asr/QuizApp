@@ -8,7 +8,7 @@ import java.util.List;
 @AllArgsConstructor
 public class QuizResult {
     private List<Response> User_Responses;
-    private int Totall_Right_Answer;
+    private int Total_Right_Answer;
 
 
 }

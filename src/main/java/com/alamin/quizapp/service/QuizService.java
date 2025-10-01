@@ -23,7 +23,7 @@ public class QuizService {
 
 
 
-    public ResponseEntity<String> creatQuiz(String category, int numQ, String title) {
+    public ResponseEntity<String> createQuiz(String category, int numQ, String title) {
         List<Question> question= questionRepository.findRandomQuestionByCategory(category,numQ);
         Quiz quiz=new Quiz();
         quiz.setTitle(title);
@@ -34,12 +34,12 @@ public class QuizService {
         
     }
 @Transactional
-    public ResponseEntity<List<QuestionWapper>> getQuizQuestions(Integer id) {
+    public ResponseEntity<List<QuestionWrapper>> getQuizQuestions(Integer id) {
          Optional<Quiz> quiz=quizRepository.findById(id);
          List<Question> questionsFromDB=quiz.get().getQuestions();
-         List<QuestionWapper> questionsForUser=new ArrayList<>();
+         List<QuestionWrapper> questionsForUser=new ArrayList<>();
          for(Question q:questionsFromDB){
-             QuestionWapper qw=new QuestionWapper(q.getId(),q.getQuestionTitle(),q.getOption1(),q.getOption2(),q.getOption3(),q.getOption4());
+             QuestionWrapper qw=new QuestionWrapper(q.getId(),q.getQuestionTitle(),q.getOption1(),q.getOption2(),q.getOption3(),q.getOption4());
              questionsForUser.add(qw);
          }
 

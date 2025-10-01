@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Data
 
-public class QuestionWapper {
+public class QuestionWrapper {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +21,7 @@ public class QuestionWapper {
     private String option3;
     private String option4;
 
-    public QuestionWapper(Integer id, String questionTitle, String option1, String option2, String option3, String option4) {
+    public QuestionWrapper(Integer id, String questionTitle, String option1, String option2, String option3, String option4) {
         this.id = id;
         this.questionTitle = questionTitle;
         this.option1 = option1;
